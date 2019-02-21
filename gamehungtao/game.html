@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body onload="docReady()">
+	<div id="nen"></div>
+	<div id="game"></div>
+	<div id="game2"></div>
+	<div id="game3"></div>
+	<div id="game4"></div>
+	<div id="game5"></div>
+	<div id="player"></div>
+	<div id="point" style="left: 10px;top: 10px;position: absolute"></div>
+	<script type="text/javascript">
+		class Apple{
+			constructor(image, top, left, size){
+				this.image = image;
+				this.top = top;
+				this.left = left;
+				this.size = size;
+				}
+			getHeroElement (){
+			    return '<img width="'+ this.size + '"' +
+			      ' height="'+ this.size + '"' +
+			      ' src="' + this.image +'"' +
+			      ' style="top: '+this.top+'px; left:'+this.left+ 'px;position:absolute;" />';
+			}	
+			playerLeft(){
+				if (this.left < 570) {
+                this.left += 20;
+            	}
+            	return this.left;
+			}
+			playerRight(){
+				if (this.left > 20) {
+                this.left -= 20;
+            	}
+                return this.left;
+			}
+			getTop(){
+				return this.top;
+			}
+			getLeft(){
+				return this.left;
+			}
+			appleMove(){
+				// if (apple.left === x && apple.top < 500) {
+					this.top += 5;
+				 // } return this.left;
+			}
+			appleMove2(){
+				// if (apple2.left === y && apple2.top < 500) {
+					this.top += 7;
+				// }
+			}
+			appleMove3(){
+				// if (apple3.left === z && apple3.top < 500) {
+					this.top += 9;
+				// }
+			}
+
+			wormMove(){
+				this.top += 12;
+			}
+			wormMove2(){
+				this.top += 8;
+			}
+			getAgain(){
+				this.top = 10 ;
+				this.left = Math.floor(Math.random() * 500) + 100;;
+				this.size = 30;
+			}
+		}
+			var x = Math.floor(Math.random() * 500) + 100;
+			var y = Math.floor(Math.random() * 500) + 100;
+			var z = Math.floor(Math.random() * 500) + 100;
+			var t = Math.floor(Math.random() * 500) + 100;
+			var s = Math.floor(Math.random() * 500) + 100;
+
+			var anhnen = new Apple("hinhnen.png",0,0, 650);
+			document.getElementById('nen').innerHTML = anhnen.getHeroElement();
+			var nhanvat = new Apple("gio.png", 500, 300, 50);
+			document.getElementById('player').innerHTML = nhanvat.getHeroElement();
+			var apple = new Apple("tao.png", 10, x, 30);
+			var apple2 = new Apple("tao.png", 10, y, 30);
+			var apple3 = new Apple("tao.png", 10, z, 30);
+			var sau = new Apple ("worms_PNG26.png", 10 ,t, 40);
+			var sau2 = new Apple ("worms_PNG26.png", 10 ,s, 40);
+			var score = 0;
+			function start1(){
+				if (apple.getTop() <= 500) {
+			    apple.appleMove();
+			  	document.getElementById('game').innerHTML = apple.getHeroElement();
+			  	} 
+			  	else if( apple.getTop() >= 500 && Math.floor(apple.getLeft() / 100) === Math.floor( nhanvat.getLeft() / 100)){		
+			  		score +=10;
+			  		apple.getAgain();
+			  	}
+			  	else apple.getAgain();
+			  	document.getElementById('game').innerHTML = apple.getHeroElement();
+			  	document.getElementById('point').innerHTML = "Point: " + score;
+			  	console.log("left = "+apple.getLeft()+"<br>"+"top = "+apple.getTop());
+				setTimeout(start1, 100);		
+			}
+			start1();
+			function start2(){
+				if (apple2.getTop() <= 500) {
+			    apple2.appleMove2();
+			  	document.getElementById('game2').innerHTML = apple2.getHeroElement();
+			  	}
+			  	else if( apple2.getTop() >= 500 && Math.floor(apple2.getLeft() / 100) === Math.floor( nhanvat.getLeft() / 100)){		
+			  		score +=10;
+			  		apple2.getAgain();
+			  	}
+			  	else apple2.getAgain(); 
+			  	document.getElementById('game2').innerHTML = apple2.getHeroElement();
+			  	setTimeout(start2, 100);
+			  	}
+			start2();
+			function start3(){
+				if (apple3.getTop() <= 500) {
+			    apple3.appleMove3();
+			  	document.getElementById('game3').innerHTML = apple3.getHeroElement();
+			  	}
+			  	else if( apple3.getTop() >= 500 && Math.floor(apple3.getLeft() / 100) === Math.floor( nhanvat.getLeft() / 100)){		
+			  		score +=10;
+			  		apple3.getAgain();
+			  	}
+			  	else apple3.getAgain(); 
+			  	document.getElementById('game3').innerHTML = apple3.getHeroElement();
+			  	setTimeout(start3, 100);
+			  	}
+			start3();
+			function lose(){
+				if (sau.getTop() <= 500) {
+			    sau.wormMove();
+			  	document.getElementById('game4').innerHTML = sau.getHeroElement();
+			  	}
+			  	else if( sau.getTop() >= 500 && Math.floor(sau.getLeft() / 100) === Math.floor( nhanvat.getLeft() / 100)){		
+			  		alert("You lose " + "Point: " +score );
+			  	}
+			  	else sau.getAgain(); 
+			  	document.getElementById('game4').innerHTML = sau.getHeroElement();
+			  	setTimeout(lose, 100);
+			  	}
+			lose();
+			function lose2(){
+				if (sau2.getTop() <= 500) {
+			    sau2.wormMove2();
+			  	document.getElementById('game5').innerHTML = sau2.getHeroElement();
+			  	}
+			  	else if( sau2.getTop() >= 500 && Math.floor(sau2.getLeft() / 100) === Math.floor( nhanvat.getLeft() / 100)){		
+			  		alert("You lose " + "Point: " + score );
+			  	}
+			  	else sau2.getAgain(); 
+			  	document.getElementById('game5').innerHTML = sau2.getHeroElement();
+			  	setTimeout(lose2, 100);
+			  	}
+			lose2();
+
+			function moveSelection(evt) {
+   			switch (evt.keyCode) {
+       			case 37:
+            		var element = nhanvat.playerRight();
+					document.getElementById('player').innerHTML = nhanvat.getHeroElement();
+            		break;
+        		case 39:
+            		var element = nhanvat.playerLeft();
+					document.getElementById('player').innerHTML = nhanvat.getHeroElement();
+            		break;
+	    		}
+			}
+			function docReady() {
+				window.addEventListener('keydown', moveSelection);
+			}			
+	</script>
+
+</body>
+</html>
